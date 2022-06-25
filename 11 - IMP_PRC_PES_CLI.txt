@@ -1,0 +1,47 @@
+SELECT
+    1 AS CD_EMP
+     ,c.clientes_id AS CD_PES_PLU
+     ,c.nome AS RZ_PES
+     ,c.nome AS NM_FANT
+     ,c.cpf AS CGC_CPF
+     ,c.fis_jur AS TP_PES
+     ,COALESCE(c.inscr,'ISENTO') AS INSC_EST
+     ,'ISENTO' AS INSC_MUN
+     ,0 AS CD_FUN
+     ,c.endereco AS END_PES
+     ,c.numero1 AS NR_END
+     ,coalesce(c.complemento,'') AS COMPL_END
+     ,coalesce(c.bairro,'') AS BAIRRO_PES
+     ,cid.nome_cidade AS DS_CID
+     ,cid.uf AS UF
+     ,cid.cod_cidade_ibge as CD_CID
+     ,'' AS END_PONTO_REFE
+     ,c.cep AS CEP
+     ,c.telefone1 AS TEL_FIXO
+     ,c.celular AS TEL_CEL
+     ,c.email AS EMAIL
+     ,c.data_nasc AS DT_NASC
+     ,if(c.sexo = 'F', 1, 0) AS SEXO_CLI
+     ,concat(c.rg,'-', c.orgao_exped_rg) AS RG_ORG_EXP
+     ,c.nome_pai AS NM_PAI
+     ,c.nome_mae AS NM_MAE
+     ,0 AS CD_CONV_PLU
+     ,c.chapa AS MATRICULA
+     ,c.fidelidade AS NR_CARTAO
+     ,c.lim_cre_total AS VLR_CRED
+     ,if(c.status = 'S', 1, 0) AS STS_CRED
+     ,c.obs AS INSTRUCOES
+     ,0 as TP_CLI
+     ,0 as TP_FORN
+
+FROM clientes c
+left join cidade cid on c.cidade_id = cid.cidade_id
+WHERE
+    c.apagado = 'N'
+
+
+select distinct status from clientes
+
+select * from cidade
+
+show columns from clientes like '%cidade%'

@@ -1,0 +1,11 @@
+select
+    1 as CD_EMP
+     ,p.produto_id as CD_PROD
+     ,p.principio_ativo_id as CD_PRINC_ATIVOS
+     ,0 as REVER_VINC
+     ,null as DT_SOLI
+     ,1 as CD_USU
+     ,null as DT_REV
+from produto as p
+where p.apagado =  'N'
+and p.principio_ativo_id is not null

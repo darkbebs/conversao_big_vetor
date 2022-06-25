@@ -1,0 +1,14 @@
+SELECT
+       1 as CD_EMP,
+       grp_filho.grupo_id as CD_ARV_MERC_LINHA
+#      , grp_filho.descricao
+#      , grp_pai.descricao descricao_pai
+     , grp_pai.desc_arvore DS_ARV_MERC_LINHA
+                  ,0 AS FLAG_LINHA_MIX
+                  ,0 AS FLAG_NAO_PARTIC_INDIC
+                  ,0 AS FLAG_PARTIC_PRECIFICACAO
+FROM grupo grp_filho
+         JOIN grupo grp_pai
+              ON (SUBSTRING(grp_filho.codigo, 1, 7) = grp_pai.grupo_id)
+WHERE (grp_filho.apagado = "N")
+  AND (grp_pai.apagado = "N");

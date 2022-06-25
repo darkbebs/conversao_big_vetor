@@ -1,0 +1,13 @@
+select
+      T.principio_ativo_id  AS CD_PRINC_ATIVOS
+     ,T.descricao  AS DS_PRINC_ATIVOS
+     ,1 AS CD_RECEITA_TIPO
+     ,'ND' AS DS_INDICACOES
+     ,'ND' AS DS_CONTRA_INDICACOES
+     ,'ND' AS DS_EFEITOS_COLATE
+     ,0 AS RISCO_GRAVIDEZ
+     ,'ND' AS DS_POSOLOGIA
+     ,0 AS CD_DCB
+from  principio_ativo T
+WHERE
+        apagado = 'N'

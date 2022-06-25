@@ -1,0 +1,12 @@
+
+SELECT
+      1 AS CD_EMP
+     ,produto_id AS CD_PROD
+     ,barras CD_BARRA
+     ,0 AS TP_CD_BARRA
+     ,0 AS NAO_EXPORTAR
+     ,0 AS EAN_CAIXA_FECHADA
+     ,1 AS CD_USU
+     ,dtcadastro AS DT_CAD
+FROM barras
+where apagado = 'N'

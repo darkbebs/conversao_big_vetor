@@ -1,0 +1,66 @@
+SELECT
+    1 AS CD_EMP
+     ,p.Produto_id AS CD_PROD
+     ,1 AS CD_FILIAL
+     ,p.descricao AS DS_PROD
+     ,p.desc_etiq AS DS_USUAL
+     ,1 AS APRES_EMB_CP
+     ,1 AS APRES_EMB_VD
+     ,p.qt_fr AS APRES_QT_CP
+     ,p.qt_fr AS APRES_QT_VD
+     ,0 AS PESO_PROD_CP
+     ,0 AS PESO_PROD_VD
+     ,p.dtcadastro AS DT_CAD
+     ,0 AS CD_SC
+     ,0 AS CD_GRP
+     ,0 AS CD_GRP_SUB
+     ,1 AS CD_USU
+     ,p.dtalteracao AS DT_ULT_ATU
+     ,0 AS CD_MC
+     ,1 AS CD_UN_VD
+     ,1 AS CD_UN_CP
+     ,p.Produto_id AS PLU_PROD
+     ,p.cstcofins AS PIS_COFINS
+     ,p.margem AS PERC_MARGEM
+     ,0 AS GERA_ETQ_RES
+     ,fabricantes_id AS CD_FABRIC
+     ,COALESCE(p.preco_cmp_un, 0) AS VLR_CUSTO_GRP
+     ,coalesce(p.preco_cmp_un, 0) AS VLR_COMPRA_GRP
+     ,p.inativo AS STS_PROD
+     ,p.lista AS LISTA_PROD /* [P]ositivo, [N]egativo, ne[U]tro, [O]utros */
+     ,'' AS OBS_PROD
+     ,0 AS PERC_DESC_FIX
+     ,0 AS CTR_LOTE
+     ,0 AS CTR_PMC
+     ,p.ncm AS NR_NCM
+     ,2 AS COMPRA_POR_SUPRIMENTO
+     ,1 AS QT_UNI_RESSUPRIMENTO
+     ,0 AS PROD_LIBERADO
+     ,0 AS PROD_USO_CONT
+     ,p.classe_terapeutica_id AS FLAG_REQUER_RECEIT
+     ,0 AS FLAG_ALTERAR_PRECO
+     ,0 AS FLAG_PROD_KIT
+     ,if(p.controla_validade = 'A' or g.Controlado = 'S', 1, 0)   AS FLAG_PRODUTO_CONTROLADO
+     ,0 AS FLAG_PRODUTO_BLISTER
+     ,COALESCE(p.registro_ms, '0') AS NR_REG_MS
+     ,if(p.controla_validade = 'A' or g.Controlado = 'S', 1, 0) AS CONTROLE_SNGPC
+     ,0 AS CD_TP_RECEITA
+     ,0 AS CD_COR_RECEITA
+     ,if(p.controla_validade = 'A', 1, 0) AS ANTIBIOTICO
+     ,0 AS TP_UND_FARMACOTECNICA
+     ,0 AS TP_UND_ANVISA
+     ,0 AS TP_CLASS_ANVISA
+     ,0 AS RECEITA_FLAG_TIPO_OBRIGATOREIDADE
+     ,0 AS COMPRA_OL
+     ,c.codigo AS NR_CEST
+     ,0 AS FLAG_TRIB_PIS_COFINS_PROD
+     ,p.cstcofins AS CD_CST_PIS_SAIDA
+     ,p.cstcofins AS CD_CST_COFINS_SAIDA
+     ,p.cstpis_ent AS CD_CST_PIS_ENTRADA
+     ,p.cstcofins_ent AS CD_CST_COFINS_ENTRADA
+FROM
+    produto p
+        join grupo g on p.grupo_id = g.grupo_id
+        left join cest c on p.cest_id = c.cest_id
+where p.apagado = 'N'
+order by p.Produto_id;

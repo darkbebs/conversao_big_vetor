@@ -1,0 +1,52 @@
+SELECT
+      1 AS CD_EMP
+     ,E.filial_id as CD_FILIAL
+     ,E.produto_id   as CD_PROD
+     ,E.estoque  AS QT_EST
+     ,'0,00'            AS QT_EST_FLUT
+     ,E.estoque                 AS PRAT
+     ,0                 AS GAV
+     ,E.pmc            AS VLR_CUSTO_MD
+     ,E.precoee        AS VLR_CUSTO
+     ,E.precoee     AS VLR_CUSTO_INI
+     ,1                 AS CD_USU
+     ,E.dtalteracao         AS DT_ULT_ATU
+     ,'0,00'            AS PERC_IPI
+     ,0                 AS IPI_NF_SAIDA
+     ,0                 AS TP_PROD
+     ,0                 AS STS_PROD
+     ,now()             AS DT_CAD
+     ,''                AS DT_ULT_ENTR_COMPRA
+     ,0 AS VLR_COMPRA
+     ,now()             AS DT_ULT_ENTR_TRANSF
+     ,'0,00'            AS VLR_TRANSF
+     ,ee.maximo   				 AS EMAX
+     ,ee.minimo   				    AS ESEG
+     ,4                 AS CD_SIGLA
+     ,'0,00'            AS QT_EST_EM_TERC
+     ,'0,00'            AS QT_EST_DE_TERC
+     ,'0,00'            AS QT_EST_GAV
+     ,'0,00'            AS QTDE_FINANCIADO
+     ,'0,00'            AS QTDE_LIMITADOR
+     ,'0,00'            AS QTDE_FACEAMENTO
+     ,'0,00'            AS MEDIAF
+     ,'0,00'            AS QT_VD_MES1
+     ,'0,00'            AS QT_VD_MES2
+     ,'0,00'            AS QT_VD_MES3
+     ,'0,00'            AS QT_EST_DEPOSITOS
+     ,'0,00'            AS QTDE_MES_VENDA_FECHADO
+     ,now()             AS DT_ULT_SAI_VENDA
+     ,'0,00'            AS PERC_COMISSAO_SERVICO
+     ,'0,00'            AS VLR_CUSTO_ANT
+     ,'0,00'            AS SLD_INI
+     ,now()             AS DT_IMP
+     ,'0,00'            AS QT_IMP
+FROM
+    estoque_minimo E
+        INNER JOIN
+    Produto P ON
+            E.produto_id = P.produto_id
+    join estoque_minimo2 ee on E.produto_id = ee.produto_id and E.filial_id = ee.filial_id
+where
+        E.apagado = 'N'
+order by P.Produto_id

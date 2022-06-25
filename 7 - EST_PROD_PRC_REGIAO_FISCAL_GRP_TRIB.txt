@@ -1,0 +1,24 @@
+SELECT
+            1          AS CD_EMP
+           ,1          AS CD_REGIAO_FISCAL
+           ,p.produto_id  as CD_PROD
+           ,0          AS CD_GRP_TRIB
+           ,case
+                       when substring(sittr, 2,2) = '00' then 1
+                       when substring(sittr, 2,2) = '60' then 8
+                       when substring(sittr, 2,2) = '40' then 14
+                       when substring(sittr, 2,2) = '41' then 22
+                       else 8
+            end AS CD_TRIB
+           ,t.icms AS PERC_ICMS
+           ,0          AS PERC_RED
+           ,0          AS TP_SUBS
+           ,0          AS PERC_ICMS_SUBS_TRIB
+           ,0          AS PERC_RED_SUBS_TRIB
+           ,0          AS PERC_PAUTA_IVA
+           ,0          AS PERC_RED_ESTORNO
+           ,0          AS PERC_IBPT
+           ,substring(sittr, 2,2) AS CD_TRIB_CST
+from  produto p
+join totalfisc t on p.totfisc = t.totalizador
+where p.apagado = 'N'
